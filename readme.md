@@ -9,9 +9,17 @@ If not, follow the AWS official documentation here https://docs.aws.amazon.com/c
 
 The easiest way to create the EKS would be using 'ekscli'
 
-'$ chocolatey install -y eksctl' 
+```
+$ chocolatey install -y eksctl
+```
 
-'$ eksctl version'
+Check if your have successfully installed the eksctl
+
+```
+$ eksctl version
+```
+
+Now you can create the cluster
 
 ```
 $ eksctl create cluster \
@@ -30,8 +38,28 @@ Building your custom Jenkins and uploading it to dockerhub. Make sure you are lo
 
 If Dockerhub is not yet configured, refer to Docker documentation here https://docs.docker.com/engine/reference/commandline/login/
 
-'$ docker build -t yourregistry/jenkinsimage jenkins/'
+Now you can build your image with your own username instead of 'yourregistry'
 
-'$ docker push yourregistry/jenkinsimage:latest'
+```
+$ docker build -t yourregistry/jenkinsimage jenkins/
+```
+
+Now you can push up your image.
+```
+$ docker push yourregistry/jenkinsimage:latest
+```
 
 This will also take a while, depending on your internet speed.
+
+## Jenkins
+With your images successfully pushed and EKS context correctly configurated, now you can start your services.
+
+```
+$ kubectl apply -f jenkins/k8s.yaml
+```
+
+You can check the status of your pods by using 
+
+```
+$ kubectl get pods -o wide -n jenkins
+```
