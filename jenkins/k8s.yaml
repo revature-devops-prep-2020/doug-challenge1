@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: jenkins
-          image: jenkins/jenkins:lts
+          image: dougliu/tiny-jenkins:latest
           resources:
             requests:
               memory: "500Mi"
