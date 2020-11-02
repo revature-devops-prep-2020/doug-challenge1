@@ -24,3 +24,19 @@ eksctl create cluster \
  --without-nodegroup
 
 ```
+
+Now this will take 15+ minutes. Make sure to change your K8S context to the new Kubernetes you created.
+
+## 
+Building your custom Jenkins and uploading it to dockerhub. Make sure you are logged into your DockerHub before pushing. 
+
+If Dockerhub is not yet configured, refer to Docker documentation here https://docs.docker.com/engine/reference/commandline/login/
+
+```
+docker build -t yourregistry/jenkinsimage jenkins/
+ --without-nodegroup
+
+docker push yourregistry/jenkinsimage:latest
+
+```
+This will also take a while, depending on your internet speed.
