@@ -55,11 +55,18 @@ This will also take a while, depending on your internet speed.
 With your images successfully pushed and EKS context correctly configurated, now you can start your services.
 
 ```
-$ kubectl apply -f jenkins/k8s.yaml
+$ kubectl apply -f jenkins/k8s.yaml (-n jenkins)
 ```
 
 You can check the status of your pods by using 
 
 ```
-$ kubectl get pods -o wide -n jenkins
+$ kubectl get pods -o wide (-n jenkins)
 ```
+
+If you need password for the initial setup, copy the password by using
+
+```
+kubectl logs $(kubectl get pods --selector=app=jenkins -o=jsonpath='{.items[0].metadata.name}') jenkins (-n jenkins)
+```
+Make sure to setup and remember your admin user, passowrd.
