@@ -1,6 +1,8 @@
 # Challenge 1
 Build a Jenkins CI/CD pipeline for a Dockerized Spring/Node/DotNet microservice on a Kubernetes environment on AWS using Jenkins. Set up your cloud infrastructure using `awscli`, register a GitHub hook to trigger a Jenkins build, and validate code quality with SonarCloud before publishing a Docker image to DockerHub. Use `kubectl` to deploy the image to both a testing and staging environment. Report build, test, and deployment results via Slack/Discord or email message.
 
+# Configuration
+
 ## AWS Setup
 Setup AWS infrastructure using `awscli`
 Make sure that you have aready configurated your credentials is '~/.aws/credentials', this is user specific.
@@ -55,18 +57,21 @@ This will also take a while, depending on your internet speed.
 With your images successfully pushed and EKS context correctly configurated, now you can start your services.
 
 ```
-$ kubectl apply -f jenkins/k8s.yaml (-n jenkins)
+$ kubectl apply -f jenkins/k8s.yaml -n jenkinsns
 ```
 
 You can check the status of your pods by using 
 
 ```
-$ kubectl get pods -o wide (-n jenkins)
+$ kubectl get pods -o wide -n jenkinsns
 ```
 
-If you need password for the initial setup, copy the password by using
+If you need password for the, copy the password by views the logs
+
+## Access via Browser
+
+Now it is all setup, you can copy the external url and start building your project! Your URL can also be accessed via: 
 
 ```
-kubectl logs $(kubectl get pods --selector=app=jenkins -o=jsonpath='{.items[0].metadata.name}') jenkins (-n jenkins)
+$ kubectl get services -n jenkinsns
 ```
-Make sure to setup and remember your admin user, passowrd.
